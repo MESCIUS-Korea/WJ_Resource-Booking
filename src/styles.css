@@ -1,0 +1,2466 @@
+/* =====================================================================
+ * Resource Booking Pro — 스타일
+ *  - 테마 색은 :root 맨 위 "테마 색" 구역에서 바꾼다. 주색·보조색 모두 파랑 계열이다.
+ *  - 폰트  : 나눔바른고딕 (네이버 나눔글꼴, SIL OFL 1.1 — 기업 사용·웹 임베딩 가능, 글꼴 자체의 판매만 금지)
+ *  - 앱 스타일은 .rb-* 클래스에 적용하고, Wijmo 내부 클래스(wj-*)는 문서에 있는 클래스 위주로 덮어쓴다.
+ * ===================================================================== */
+
+/* 눈누(noonnu.cc) 제공 웹폰트 코드. 굵기 400 한 가지만 있어 굵은 글씨는 브라우저가 굵게 보정(가짜 볼드)한다. */
+@font-face {
+  font-family: 'NanumBarunGothic';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2611021659@webfont-36/webfont-36/NanumBarunGothic.woff2')
+    format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --rb-font: 'NanumBarunGothic', 'Malgun Gothic', 'Apple SD Gothic Neo',
+    'Noto Sans KR', system-ui, sans-serif;
+
+  /* ▼ 테마 색 (모두 파랑 계열) ------------------------------------------------ */
+  --rb-primary: #2fa9d3; /* 제품 하늘색: 강조선·아이콘·포커스 링·차트 기본색·연한 배경의 바탕 */
+  --rb-accent: #1f6fb5; /* 진한 파랑: 헤더 그라데이션 끝·보조 강조 */
+  --rb-primary-fill: #1c75b5; /* 채워진 버튼·활성 탭·선택일의 배경 (흰 글자 대비 4.9:1) */
+  --rb-primary-hover: #165f95; /* 위 색의 호버 */
+  --rb-primary-ink: #14598a; /* 연한 파랑 배경 위의 글자·링크·탭 글자 (대비 6.7:1 이상) */
+  --rb-accent-ink: #154f82; /* 보조색 배경 위의 글자 */
+  /* ▲ 아래는 위 색에서 자동 계산 */
+  --rb-primary-soft: color-mix(in srgb, var(--rb-primary) 11%, white);
+  --rb-primary-line: color-mix(in srgb, var(--rb-primary) 40%, white);
+  --rb-accent-soft: color-mix(in srgb, var(--rb-accent) 12%, white);
+  --rb-slate: #697683; /* 회사 로고 색: 아이콘·머리글·부가 정보 */
+
+  --rb-ink: #1f2a33;
+  --rb-muted: #5a6671;
+  --rb-bg: #f3f6f8;
+  --rb-surface: #ffffff;
+  --rb-border: #dbe2e8;
+  --rb-border-strong: #c5cfd8;
+
+  --rb-danger: #d64545;
+  --rb-danger-soft: #fdecec;
+  --rb-danger-ink: #a32f2f;
+  --rb-warn: #c77700;
+  --rb-warn-soft: #fff4de;
+  --rb-warn-ink: #8a5300;
+  --rb-ok: #1f8a5b;
+  --rb-ok-soft: #e8f6ee;
+  --rb-ok-ink: #176b46;
+
+  --rb-radius: 12px;
+  --rb-radius-sm: 8px;
+  --rb-shadow: 0 1px 2px rgba(16, 24, 40, 0.04),
+    0 2px 8px rgba(16, 24, 40, 0.06);
+  --rb-shadow-pop: 0 12px 32px rgba(16, 24, 40, 0.18);
+  --rb-focus: 0 0 0 3px color-mix(in srgb, var(--rb-primary) 38%, transparent);
+  --rb-gap: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+body {
+  background: var(--rb-bg);
+  color: var(--rb-ink);
+  font: 14px/1.55 var(--rb-font);
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+/* Wijmo 컨트롤(본문 바깥으로 붙는 드롭다운·툴팁 포함)도 같은 폰트를 쓴다. */
+.wj-control,
+.wj-control input,
+.wj-control button,
+.wj-dropdown-panel,
+.wj-popup,
+.wj-tooltip {
+  font-family: var(--rb-font);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--rb-focus);
+}
+
+.rb-app {
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 16px 24px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.rb-app h1 {
+  font-size: 22px;
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+.rb-app h2 {
+  font-size: 16px;
+  margin: 0;
+}
+.rb-h3 {
+  font-size: 14px;
+  margin: 18px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rb-muted {
+  color: var(--rb-muted);
+}
+p.rb-muted {
+  margin: 0;
+}
+.rb-hint {
+  color: var(--rb-muted);
+  font-size: 12px;
+  margin: 2px 0 0;
+}
+.rb-hint--warn {
+  color: var(--rb-warn-ink);
+}
+.rb-warn {
+  color: var(--rb-warn-ink);
+  font-weight: 700;
+}
+.rb-lead {
+  color: var(--rb-muted);
+  margin: 0 0 4px;
+}
+.rb-help {
+  color: var(--rb-muted);
+  font-size: 12.5px;
+  margin: 0 0 10px;
+}
+.rb-count {
+  color: var(--rb-muted);
+  font-size: 13px;
+}
+.rb-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.rb-spacer {
+  flex: 1;
+}
+.rb-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.rb-icon {
+  flex: none;
+  vertical-align: middle;
+}
+
+/* ---------- 앱 바(헤더) ----------
+ * overflow: hidden 을 쓰지 않는다. (내보내기 드롭다운이 앱 바 아래로 내려가야 하는데 overflow 가 잘라 버렸다)
+ * 위쪽 4px 색 줄은 앱 바의 둥근 모서리에 맞춰 직접 둥글게 만든다.
+ */
+.rb-appbar {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  background: var(--rb-surface);
+  border: 1px solid var(--rb-border);
+  border-radius: var(--rb-radius);
+  box-shadow: var(--rb-shadow);
+  padding: 16px 20px 14px;
+}
+.rb-appbar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  border-radius: var(--rb-radius) var(--rb-radius) 0 0;
+  background: linear-gradient(90deg, var(--rb-primary), var(--rb-accent));
+}
+.rb-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.rb-brand__text {
+  min-width: 0;
+}
+.rb-brand__mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--rb-primary),
+    var(--rb-primary-fill)
+  );
+  box-shadow: 0 4px 10px
+    color-mix(in srgb, var(--rb-primary-fill) 35%, transparent);
+  flex: none;
+}
+.rb-brand__sub {
+  margin: 2px 0 0;
+  color: var(--rb-slate);
+  font-size: 13px;
+}
+.rb-header__meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 8px 0 0;
+}
+.rb-header__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+.rb-sep {
+  width: 1px;
+  height: 22px;
+  background: var(--rb-border);
+  margin: 0 2px;
+}
+.rb-chip {
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-ink);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 12px;
+}
+.rb-chip--warn {
+  background: var(--rb-warn-soft);
+  color: var(--rb-warn-ink);
+}
+.rb-chip--accent {
+  background: var(--rb-accent-soft);
+  color: var(--rb-accent-ink);
+}
+.rb-lock-ico {
+  color: var(--rb-slate);
+  margin-left: 2px;
+}
+
+/* ---------- 버튼 ---------- */
+.rb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--rb-border-strong);
+  background: var(--rb-surface);
+  color: var(--rb-ink);
+  padding: 0 14px;
+  min-height: 36px;
+  border-radius: var(--rb-radius-sm);
+  cursor: pointer;
+  font: inherit;
+  white-space: nowrap;
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+.rb-btn .rb-icon {
+  color: var(--rb-slate);
+}
+.rb-btn:hover:not(:disabled) {
+  background: var(--rb-primary-soft);
+  border-color: var(--rb-primary);
+}
+.rb-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.rb-btn--primary {
+  background: var(--rb-primary-fill);
+  border-color: var(--rb-primary-fill);
+  color: #fff;
+}
+.rb-btn--primary .rb-icon {
+  color: #fff;
+}
+.rb-btn--primary:hover:not(:disabled) {
+  background: var(--rb-primary-hover);
+  border-color: var(--rb-primary-hover);
+}
+.rb-btn--danger {
+  background: var(--rb-danger-ink);
+  border-color: var(--rb-danger-ink);
+  color: #fff;
+}
+.rb-btn--danger .rb-icon {
+  color: #fff;
+}
+.rb-btn--danger:hover:not(:disabled) {
+  background: #8a2626;
+  border-color: #8a2626;
+}
+/* 보조 버튼(ghost): 배경은 투명하지만 테두리가 보이도록 한다. (필터 접기·초기화, 폼 초기화 등) */
+.rb-btn--ghost {
+  background: transparent;
+  border-color: var(--rb-border-strong);
+  color: var(--rb-ink);
+}
+.rb-btn--ghost:hover:not(:disabled) {
+  background: var(--rb-primary-soft);
+  border-color: var(--rb-primary);
+}
+/* 색을 입힌 연한 버튼: 수정(파랑) · 취소(주황) · 삭제(빨강) */
+.rb-btn--soft-primary {
+  background: var(--rb-primary-soft);
+  border-color: var(--rb-primary-line);
+  color: var(--rb-primary-ink);
+}
+.rb-btn--soft-primary .rb-icon {
+  color: var(--rb-primary-fill);
+}
+.rb-btn--soft-primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--rb-primary) 18%, white);
+  border-color: var(--rb-primary);
+}
+.rb-btn--soft-warn {
+  background: var(--rb-warn-soft);
+  border-color: #f0c98a;
+  color: var(--rb-warn-ink);
+}
+.rb-btn--soft-warn .rb-icon {
+  color: var(--rb-warn);
+}
+.rb-btn--soft-warn:hover:not(:disabled) {
+  background: #ffe9c2;
+  border-color: var(--rb-warn);
+}
+.rb-btn--soft-danger,
+.rb-btn--danger-ghost {
+  background: var(--rb-danger-soft);
+  border-color: #efb3b3;
+  color: var(--rb-danger-ink);
+}
+.rb-btn--soft-danger .rb-icon,
+.rb-btn--danger-ghost .rb-icon {
+  color: var(--rb-danger);
+}
+.rb-btn--soft-danger:hover:not(:disabled),
+.rb-btn--danger-ghost:hover:not(:disabled) {
+  background: #fbd9d9;
+  border-color: var(--rb-danger);
+}
+.rb-btn--sm {
+  min-height: 28px;
+  padding: 0 10px;
+  font-size: 12.5px;
+  border-radius: 6px;
+}
+.rb-icon-btn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: var(--rb-slate);
+  display: inline-flex;
+  align-items: center;
+  font-size: 20px;
+  line-height: 1;
+}
+.rb-icon-btn:hover {
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-ink);
+}
+.rb-link-btn {
+  border: 0;
+  background: transparent;
+  color: var(--rb-primary-ink);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+  padding: 2px 4px;
+  text-align: left;
+}
+.rb-chip-btn {
+  border: 1px solid var(--rb-primary-line);
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-ink);
+  border-radius: 999px;
+  padding: 3px 12px;
+  margin: 2px 6px 2px 0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+}
+.rb-chip-btn:hover {
+  background: color-mix(in srgb, var(--rb-primary) 18%, white);
+}
+.rb-chip-btn small {
+  color: var(--rb-muted);
+}
+
+.rb-seg {
+  display: inline-flex;
+  border: 1px solid var(--rb-border-strong);
+  border-radius: var(--rb-radius-sm);
+  overflow: hidden;
+  background: #fff;
+}
+.rb-seg__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  padding: 0 12px;
+  cursor: pointer;
+  font: inherit;
+  min-height: 34px;
+  color: var(--rb-muted);
+}
+.rb-seg__btn + .rb-seg__btn {
+  border-left: 1px solid var(--rb-border);
+}
+.rb-seg__btn:hover {
+  background: var(--rb-primary-soft);
+}
+.rb-seg__btn[aria-pressed='true'] {
+  background: var(--rb-primary-fill);
+  color: #fff;
+}
+.rb-menu {
+  position: relative;
+}
+.rb-menu > summary {
+  list-style: none;
+  user-select: none;
+}
+.rb-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.rb-menu__panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: #fff;
+  border: 1px solid var(--rb-border);
+  border-radius: 10px;
+  box-shadow: var(--rb-shadow-pop);
+  z-index: 60;
+  min-width: 200px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+}
+.rb-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 9px 12px;
+  cursor: pointer;
+  font: inherit;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.rb-menu__item .rb-icon {
+  color: var(--rb-slate);
+}
+.rb-menu__item:hover {
+  background: var(--rb-primary-soft);
+}
+
+/* ---------- 필, 태그, 배지 ---------- */
+.rb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.rb-pill--lock {
+  background: #eef2f5;
+  color: var(--rb-muted);
+  border: 1px solid var(--rb-border);
+}
+.rb-pill--ok {
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-ink);
+  border: 1px solid var(--rb-primary-line);
+}
+.rb-modal-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.rb-tag {
+  display: inline-block;
+  padding: 0 7px;
+  border-radius: 5px;
+  font-size: 11.5px;
+  line-height: 1.7;
+  background: var(--rb-warn-soft);
+  color: var(--rb-warn-ink);
+  border: 1px solid #f2d9a6;
+  margin-left: 2px;
+}
+.rb-tag--conflict {
+  background: var(--rb-danger-soft);
+  color: var(--rb-danger-ink);
+  border-color: #f3c1c1;
+}
+.rb-tag--warning {
+  background: var(--rb-warn-soft);
+  color: var(--rb-warn-ink);
+}
+.rb-tag--plain {
+  background: #eef2f5;
+  color: #3f4b56;
+  border-color: var(--rb-border);
+}
+.rb-tag--info {
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-ink);
+  border-color: var(--rb-primary-line);
+}
+.rb-badge {
+  display: inline-block;
+  padding: 0 7px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  border: 1px solid currentColor;
+  background: rgba(255, 255, 255, 0.8);
+}
+.rb-badge--confirmed {
+  color: var(--rb-primary-ink);
+}
+.rb-badge--tentative {
+  color: var(--rb-accent-ink);
+  border-style: dashed;
+}
+.rb-badge--cancelled {
+  color: var(--rb-muted);
+  text-decoration: line-through;
+}
+.rb-badge--blocked {
+  color: #3f4b56;
+}
+
+/* ---------- 안내 상자(권한 경고 등). 아이콘 + 문단 하나만 flex 로 배치해 문장 중간이 벌어지지 않는다. ---------- */
+.rb-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin: 0 0 12px;
+  border: 1px solid var(--rb-border);
+  background: #f7f9fb;
+}
+.rb-notice p {
+  margin: 0;
+}
+.rb-notice__icon {
+  margin-top: 2px;
+}
+.rb-notice--warn {
+  background: var(--rb-warn-soft);
+  border-color: #f2d9a6;
+  color: #5f3a00;
+}
+.rb-notice--warn .rb-notice__icon {
+  color: var(--rb-warn);
+}
+.rb-lockhint {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #eef2f5;
+  color: var(--rb-muted);
+  font-size: 12.5px;
+}
+.rb-lockhint .rb-icon {
+  margin-top: 2px;
+  color: var(--rb-slate);
+}
+
+/* ---------- 폼 (입력창 높이: min-height 를 두지 않고 안쪽 여백으로 정한다) ---------- */
+.rb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.rb-field > label {
+  font-weight: 700;
+  font-size: 13px;
+}
+.rb-field input[type='text'],
+.rb-field textarea,
+.rb-block-form input[type='text'] {
+  border: 1px solid var(--rb-border-strong);
+  border-radius: var(--rb-radius-sm);
+  padding: 6px 10px;
+  font: inherit;
+  line-height: 1.4;
+  background: #fff;
+  width: 100%;
+  color: var(--rb-ink);
+}
+.rb-field input:focus,
+.rb-field textarea:focus,
+.rb-block-form input[type='text']:focus {
+  outline: none;
+  border-color: var(--rb-primary);
+  box-shadow: var(--rb-focus);
+}
+.rb-field input[aria-invalid='true'],
+.rb-field textarea[aria-invalid='true'] {
+  border-color: var(--rb-danger);
+  box-shadow: 0 0 0 3px rgba(214, 69, 69, 0.12);
+}
+.rb-field input:disabled,
+.rb-field textarea:disabled {
+  background: #f1f4f6;
+  color: var(--rb-muted);
+  cursor: not-allowed;
+}
+.rb-field textarea {
+  resize: vertical;
+}
+.rb-field--full {
+  grid-column: 1 / -1;
+}
+.rb-field--narrow {
+  max-width: 180px;
+}
+.rb-req {
+  color: var(--rb-danger);
+}
+.rb-error {
+  color: var(--rb-danger-ink);
+  font-size: 12px;
+  margin: 2px 0 0;
+}
+.rb-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+.rb-check input {
+  accent-color: var(--rb-primary-fill);
+  width: 16px;
+  height: 16px;
+}
+.rb-inline-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.rb-inline-field > span {
+  font-weight: 700;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.rb-fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.rb-section {
+  padding-top: 4px;
+}
+.rb-section + .rb-section {
+  margin-top: 6px;
+  border-top: 1px solid var(--rb-border);
+}
+.rb-demo {
+  margin-top: 18px;
+  padding: 12px 14px 14px;
+  background: var(--rb-primary-soft);
+  border: 1px dashed var(--rb-primary-line);
+  border-radius: 10px;
+}
+
+/* ---------- Wijmo 입력 컨트롤 공통 (min-height 없음: 높이는 Wijmo 기본 여백을 따른다) ---------- */
+.rb-wjc {
+  min-width: 0;
+  flex: 0 0 auto;
+}
+.rb-wjc .wj-control {
+  width: 100%;
+  border-radius: var(--rb-radius-sm);
+  border-color: var(--rb-border-strong);
+  background: #fff;
+}
+.rb-wjc .wj-control.wj-state-focus,
+.rb-xf__date .wj-control.wj-state-focus {
+  border-color: var(--rb-primary);
+  box-shadow: var(--rb-focus);
+}
+.rb-wjc .wj-control.wj-state-disabled,
+.rb-wjc .wj-control[disabled] {
+  background: #f1f4f6;
+  color: var(--rb-muted);
+}
+/* 오류: 배경색은 그대로 두고 테두리와 옅은 링만 바꾼다. */
+.rb-wjc--invalid .wj-control {
+  border-color: var(--rb-danger);
+  box-shadow: 0 0 0 3px rgba(214, 69, 69, 0.12);
+}
+.rb-xf__date .wj-control {
+  border-radius: var(--rb-radius-sm);
+  border-color: var(--rb-border-strong);
+}
+
+/* 드롭다운 패널은 body 로 붙는다. Wijmo 팝업(대화상자) 위에 보이도록 z-index 를 넉넉히 올린다. */
+.wj-dropdown-panel {
+  z-index: 5000;
+  border-radius: 10px;
+  border: 1px solid var(--rb-border);
+  box-shadow: var(--rb-shadow-pop);
+  overflow: hidden;
+}
+.wj-listbox .wj-listbox-item {
+  padding: 7px 12px;
+}
+.wj-listbox .wj-listbox-item:hover:not(.wj-state-selected) {
+  background: var(--rb-primary-soft);
+}
+.wj-listbox .wj-listbox-item.wj-state-selected,
+.wj-dropdown-panel .wj-state-selected {
+  background: var(--rb-primary-fill);
+  color: #fff;
+}
+
+/* ---------- 달력(InputDate / InputDateTime 팝업, 스케줄러 날짜 선택) ----------
+ * 선택 범위: 시작·끝 날짜 = 진한 파랑 둥근 칸, 그 사이 = 연한 파랑 띠로 이어서 표시한다. (어두운 색은 쓰지 않는다)
+ * 색은 :root 의 테마 색에서 계산되므로 테마 색을 바꾸면 함께 바뀐다.
+ */
+.wj-calendar {
+  --rb-cal-main: var(--rb-primary-fill); /* 시작·끝 칸 (흰 글자 대비 4.9:1) */
+  --rb-cal-band: color-mix(
+    in srgb,
+    var(--rb-primary) 20%,
+    white
+  ); /* 사이 구간 띠 */
+  --rb-cal-ink: var(--rb-primary-ink); /* 띠 위 글자 (대비 6.1:1) */
+  background: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: 6px;
+}
+.wj-calendar .wj-calendar-header {
+  background: #fff;
+  color: var(--rb-ink);
+  font-weight: 700;
+  border-bottom: 1px solid var(--rb-border);
+}
+.wj-calendar .wj-header {
+  background: transparent;
+  color: var(--rb-slate);
+  font-weight: 700;
+  font-size: 12px;
+}
+.wj-calendar .wj-calendar-month {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.wj-calendar td {
+  border-radius: 8px;
+  position: relative;
+  isolation: isolate;
+  cursor: pointer;
+}
+.wj-calendar
+  td:not(.wj-state-selected):not(.wj-state-multi-selected):not(
+    .wj-state-last-selected
+  ):hover {
+  background: var(--rb-primary-soft);
+}
+.wj-calendar .wj-state-selected {
+  background: var(--rb-primary-fill);
+  color: #fff;
+  border-radius: 8px;
+} /* 월 선택 화면 등 */
+.wj-calendar td.wj-day-today {
+  font-weight: 700;
+}
+/* 오늘(선택 범위 밖): 연한 배경 + 파란 테두리 */
+.wj-calendar
+  .wj-day-today:not(.wj-state-selected):not(.wj-state-multi-selected):not(
+    .wj-state-last-selected
+  ) {
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-ink);
+  box-shadow: inset 0 0 0 1.5px var(--rb-primary);
+}
+.wj-calendar .wj-day-othermonth {
+  color: #a3adb6;
+}
+.wj-calendar
+  .rb-cal-sun:not(.wj-state-selected):not(.wj-state-multi-selected):not(
+    .wj-state-last-selected
+  ) {
+  color: #c23b3b;
+}
+.wj-calendar
+  .rb-cal-sat:not(.wj-state-selected):not(.wj-state-multi-selected):not(
+    .wj-state-last-selected
+  ) {
+  color: var(--rb-primary-ink);
+}
+.wj-calendar
+  .wj-day-othermonth.rb-cal-sun:not(.wj-state-selected):not(
+    .wj-state-multi-selected
+  ),
+.wj-calendar
+  .wj-day-othermonth.rb-cal-sat:not(.wj-state-selected):not(
+    .wj-state-multi-selected
+  ) {
+  opacity: 0.55;
+}
+
+/* ----- 선택 범위: 사이 구간 = 연한 띠 (줄의 첫 칸·끝 칸만 모서리를 둥글게 닫는다) ----- */
+.wj-calendar-month td.wj-state-multi-selected {
+  background: var(--rb-cal-band);
+  color: var(--rb-cal-ink);
+  border-radius: 0;
+}
+.wj-calendar-month tr > td.wj-state-multi-selected:first-child {
+  border-radius: 8px 0 0 8px;
+}
+.wj-calendar-month tr > td.wj-state-multi-selected:last-child {
+  border-radius: 0 8px 8px 0;
+}
+.wj-calendar-month
+  td.rb-cal-sun.wj-state-multi-selected:not(.wj-state-last-selected) {
+  color: #a82a2a;
+} /* 띠 위 일요일 (대비 5.7:1) */
+.wj-calendar-month
+  td.wj-day-othermonth.wj-state-multi-selected:not(.wj-state-last-selected) {
+  color: color-mix(in srgb, var(--rb-cal-ink) 60%, var(--rb-cal-band));
+  opacity: 1;
+}
+
+/* ----- 선택 범위: 시작·끝(또는 하루만 선택) = 진한 둥근 칸. 칸 배경은 비우고 ::before 로 그린다 ----- */
+.wj-calendar-month td.wj-state-selected,
+.wj-calendar-month td.wj-state-last-selected {
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+}
+.wj-calendar-month td.wj-state-selected::before,
+.wj-calendar-month td.wj-state-last-selected::before {
+  content: '';
+  position: absolute;
+  inset: 1px 2px;
+  border-radius: 8px;
+  background: var(--rb-cal-main);
+  z-index: -1;
+}
+/* 시작 칸 오른쪽 절반 / 끝 칸 왼쪽 절반에 띠를 깔아, 진한 칸이 띠 위에 얹힌 모양으로 이어 준다 */
+.wj-calendar-month td.wj-state-selected:has(+ td.wj-state-multi-selected) {
+  background: linear-gradient(
+    to right,
+    transparent 50%,
+    var(--rb-cal-band) 50%
+  );
+}
+.wj-calendar-month
+  td.wj-state-last-selected:not(.wj-state-selected):not(:first-child) {
+  background: linear-gradient(to left, transparent 50%, var(--rb-cal-band) 50%);
+}
+
+/* ----- 오늘이 선택 범위 안에 있을 때: 띠를 끊지 않고 숫자 아래 작은 점으로만 표시 ----- */
+.wj-calendar-month td.wj-day-today.wj-state-selected::after,
+.wj-calendar-month td.wj-day-today.wj-state-multi-selected::after,
+.wj-calendar-month td.wj-day-today.wj-state-last-selected::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--rb-cal-main);
+}
+.wj-calendar-month td.wj-day-today.wj-state-selected::after,
+.wj-calendar-month td.wj-day-today.wj-state-last-selected::after {
+  background: #fff;
+}
+
+/* ----- 키보드 포커스 ----- */
+.wj-calendar-month td.wj-state-focus {
+  outline: 2px solid var(--rb-primary);
+  outline-offset: -2px;
+}
+.wj-calendar-month td.wj-state-selected.wj-state-focus,
+.wj-calendar-month td.wj-state-last-selected.wj-state-focus {
+  outline-color: #fff;
+  outline-offset: -4px;
+}
+
+/* ---------- 탭(Wijmo TabPanel) ---------- */
+.rb-tabpanel {
+  min-width: 0;
+}
+.rb-tabs-host.wj-tabpanel {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.rb-tabs-host .wj-tabheaders {
+  background: transparent;
+  border-bottom: 1px solid var(--rb-border);
+}
+.rb-tabs-host .wj-tabheader {
+  padding: 10px 18px;
+  color: var(--rb-muted);
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+}
+.rb-tabs-host .wj-tabheader:hover {
+  background: var(--rb-primary-soft);
+  outline: none;
+  color: var(--rb-primary-ink);
+}
+.rb-tabs-host .wj-tabheader.wj-state-active {
+  color: var(--rb-primary-ink);
+  font-weight: 700;
+  background: transparent;
+}
+.rb-tabs-host .wj-tabheader.wj-state-active:after {
+  background: var(--rb-primary-fill);
+  height: 3px;
+}
+.rb-tabs-host .wj-tabpanes {
+  border: 0;
+  background: transparent;
+}
+.rb-tabs-host .wj-tabpane {
+  padding: 16px 0 0;
+}
+.rb-tabhdr {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.rb-tabhdr .rb-icon {
+  color: currentColor;
+}
+
+/* ---------- KPI 카드 ---------- */
+.rb-kpis__basis {
+  margin: 0 0 8px;
+  color: var(--rb-muted);
+  font-size: 12px;
+}
+.rb-kpis__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.rb-kpi {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--rb-surface);
+  border: 1px solid var(--rb-border);
+  border-radius: var(--rb-radius);
+  padding: 14px 16px;
+  box-shadow: var(--rb-shadow);
+}
+.rb-kpi__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.rb-kpi__icon--primary {
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-ink);
+}
+.rb-kpi__icon--accent {
+  background: var(--rb-accent-soft);
+  color: var(--rb-accent-ink);
+}
+.rb-kpi__icon--warn {
+  background: var(--rb-warn-soft);
+  color: var(--rb-warn-ink);
+}
+.rb-kpi__body {
+  min-width: 0;
+}
+.rb-kpi__label {
+  color: var(--rb-muted);
+  font-size: 13px;
+}
+.rb-kpi__value {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.rb-kpi__value--sm {
+  font-size: 20px;
+}
+
+/* 확인 필요 목록 */
+.rb-issues {
+  background: var(--rb-danger-soft);
+  border: 1px solid #f3c1c1;
+  border-left: 4px solid var(--rb-danger);
+  border-radius: var(--rb-radius);
+  padding: 12px 16px;
+}
+.rb-issues h2 {
+  color: var(--rb-danger-ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rb-issues ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+/* ---------- 필터 바 (.rb-xf) — 라벨은 줄바꿈되지 않고 한 줄로 배치된다 ---------- */
+.rb-filters {
+  background: var(--rb-surface);
+  border: 1px solid var(--rb-border);
+  border-radius: var(--rb-radius);
+  box-shadow: var(--rb-shadow);
+  padding: 14px 18px;
+}
+.rb-filters__fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.rb-xf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+}
+.rb-xf--more {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--rb-border);
+}
+.rb-xf__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  margin: 0;
+}
+.rb-xf__label {
+  font-weight: 700;
+  font-size: 13px;
+  white-space: nowrap;
+  color: var(--rb-slate);
+}
+.rb-xf__sep {
+  color: var(--rb-muted);
+}
+.rb-xf__count {
+  margin-left: auto;
+  color: var(--rb-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.rb-xf .rb-xf__control {
+  width: 150px;
+  min-width: 0;
+  padding: 6px 10px;
+  font: inherit;
+  line-height: 1.4;
+  border: 1px solid var(--rb-border-strong);
+  border-radius: var(--rb-radius-sm);
+  background: #fff;
+}
+.rb-xf .rb-xf__date {
+  width: 150px;
+  flex: 0 0 auto;
+}
+.rb-xf .rb-xf__date .wj-control {
+  width: 100%;
+}
+
+.rb-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: var(--rb-warn-soft);
+  border: 1px solid #f2d9a6;
+  border-radius: var(--rb-radius);
+  padding: 10px 14px;
+  margin: 8px 0;
+}
+
+/* ---------- 본문 레이아웃 ---------- */
+.rb-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 16px;
+  align-items: start;
+}
+.rb-scheduler-card {
+  background: var(--rb-surface);
+  border: 1px solid var(--rb-border);
+  border-radius: var(--rb-radius);
+  box-shadow: var(--rb-shadow);
+  padding: 12px 14px 10px;
+  min-width: 0;
+}
+.rb-scheduler-card__hint {
+  padding: 8px 4px 0;
+}
+.rb-fatal {
+  padding: 24px;
+  color: var(--rb-danger-ink);
+}
+
+/*
+ * 스케줄러 크기. Wijmo 는 컨트롤 크기를 호스트 CSS 로 정한다. (공식 문서: Sizing and Styling Controls)
+ *  - 호스트 높이와 "1시간 칸 가로 폭"은 DEFAULT_LAYOUT(src/domain/constants.js)에서 CSS 변수로 전달된다.
+ *  - 행 머리글(자원 이름 열)은 wj-scheduler-timed-section-header 클래스의 너비·줄바꿈을 조절한다. (개발자도구로 확인한 클래스)
+ *  - 일정 항목 높이는 wj-scheduler-item 에 min-height 로 지정한다. 아래 숫자는 화면을 보며 조절하세요.
+ */
+.rb-scheduler-wrap {
+  --rb-rowheader-width: 180px;
+  --rb-lane-min-height: 64px;
+  --rb-item-min-height: 52px;
+  height: var(--rb-sched-height, 640px);
+  overflow: auto;
+}
+.rb-scheduler-host {
+  height: 100%;
+  min-width: 0;
+}
+.rb-scheduler-wrap[data-kind='week'] .rb-scheduler-host {
+  min-width: 1000px;
+}
+.rb-scheduler-wrap[data-kind='month'] .rb-scheduler-host {
+  min-width: 900px;
+}
+.rb-scheduler-wrap .wj-scheduler .wj-scheduler-timed-section-header {
+  min-width: var(--rb-rowheader-width);
+  min-height: var(--rb-lane-min-height);
+  white-space: pre-line; /* 자원 라벨의 \n 을 줄바꿈으로: [유형] / 이름 */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  line-height: 1.25;
+  color: var(--rb-ink);
+  border-color: var(--rb-border);
+}
+.rb-scheduler-wrap .wj-scheduler .wj-scheduler-timed-section-header * {
+  white-space: inherit;
+  word-break: inherit;
+  overflow-wrap: inherit;
+  text-overflow: inherit;
+  min-width: 0;
+}
+.rb-scheduler-wrap
+  .wj-scheduler
+  .wj-scheduler-item.wj-scheduler-timed-item-horizontal {
+  min-height: var(--rb-item-min-height);
+}
+
+/*
+ * 스케줄러 툴바(이전/다음, 날짜, 일간·주간·월간 버튼) 크기 줄이기.
+ * 툴바 클래스 이름은 공식 문서에 없어서 "스케줄러 안의 모든 버튼"을 대상으로 했습니다.
+ * 높이/글자 크기는 아래 숫자만 바꾸면 됩니다.
+ */
+.rb-scheduler-wrap .wj-scheduler button,
+.rb-scheduler-wrap .wj-scheduler [role='button'] {
+  min-height: 0 !important;
+  height: 28px !important;
+  padding: 0 10px !important;
+  font-size: 12.5px !important;
+  line-height: 1 !important;
+}
+
+/* 일정 카드 (템플릿 내부 콘텐츠) */
+.rb-item {
+  padding: 2px 6px;
+  overflow: hidden;
+  height: 100%;
+  line-height: 1.3;
+  font-size: 12px;
+}
+.rb-item__title {
+  font-weight: 700;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+.rb-item__meta {
+  font-size: 11px;
+  opacity: 0.95;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rb-item--month {
+  display: flex;
+  gap: 4px;
+  white-space: nowrap;
+  align-items: baseline;
+  padding: 0 4px;
+}
+.rb-item--month .rb-item__title {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: unset;
+  flex: 1;
+  min-width: 0;
+  font-weight: 400;
+}
+.rb-item--month .rb-item__time {
+  font-size: 11px;
+  opacity: 0.85;
+  flex: none;
+}
+.rb-item--tentative {
+  outline: 2px dashed currentColor;
+  outline-offset: -3px;
+}
+.rb-item--cancelled {
+  opacity: 0.55;
+}
+.rb-item--cancelled .rb-item__title {
+  text-decoration: line-through;
+}
+.rb-item--selected {
+  box-shadow: inset 0 0 0 2px var(--rb-ink);
+}
+.rb-item--conflict {
+  box-shadow: inset 0 0 0 3px var(--rb-danger);
+  background: rgba(214, 69, 69, 0.12);
+}
+.rb-item--warn {
+  box-shadow: inset 0 0 0 3px #f09a00;
+}
+.rb-item--flash {
+  animation: rb-flash 0.8s ease-in-out 6;
+  box-shadow: inset 0 0 0 3px var(--rb-danger);
+}
+@keyframes rb-flash {
+  0%,
+  100% {
+    background: rgba(214, 69, 69, 0.05);
+  }
+  50% {
+    background: rgba(214, 69, 69, 0.45);
+  }
+}
+.rb-item--block {
+  background: repeating-linear-gradient(
+    135deg,
+    #eef1f4 0,
+    #eef1f4 8px,
+    #d9dfe5 8px,
+    #d9dfe5 16px
+  );
+  color: #3f4b56;
+}
+
+/* ---------- 상세 패널 ---------- */
+.rb-detail {
+  background: var(--rb-surface);
+  border: 1px solid var(--rb-border);
+  border-radius: var(--rb-radius);
+  box-shadow: var(--rb-shadow);
+  padding: 16px;
+  width: 360px;
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 24px);
+  overflow: auto;
+}
+.rb-detail__empty {
+  text-align: center;
+  padding: 44px 8px;
+  color: var(--rb-muted);
+}
+.rb-detail__empty p {
+  margin: 6px 0 0;
+}
+.rb-detail__empty-icon {
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-fill);
+  margin-bottom: 4px;
+}
+.rb-detail__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.rb-detail__badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.rb-detail__list {
+  margin: 12px 0 0;
+}
+.rb-detail__row {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid #eef1f4;
+}
+.rb-detail__row dt {
+  color: var(--rb-slate);
+  font-size: 12px;
+}
+.rb-detail__row dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.rb-detail__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.rb-issue-list {
+  margin: 8px 0 0;
+  padding: 8px 8px 8px 24px;
+  background: var(--rb-danger-soft);
+  border-radius: 8px;
+  color: var(--rb-danger-ink);
+  font-size: 12px;
+}
+
+/* ---------- 대화상자 (Wijmo Popup) ----------
+ * Popup 호스트(.rb-dialog)는 화면 가운데에 고정하고, 실제 모양은 안쪽 .rb-dialog__frame 이 그린다.
+ * 위치를 CSS 로 고정하므로 내용 높이가 바뀌어도(충돌 안내가 늘어나는 경우 등) 항상 가운데에 머문다.
+ * 호스트의 표시/숨김(display)은 Wijmo 가 관리하므로 여기서는 건드리지 않는다.
+ */
+.rb-dialog,
+.wj-control.rb-dialog {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  width: min(880px, calc(100vw - 32px));
+  max-width: none;
+}
+.rb-dialog--sm {
+  width: min(440px, calc(100vw - 32px));
+}
+.rb-dialog--md {
+  width: min(660px, calc(100vw - 32px));
+}
+.rb-dialog--lg {
+  width: min(860px, calc(100vw - 32px));
+}
+.rb-dialog--xl {
+  width: min(880px, calc(100vw - 32px));
+}
+.rb-dialog__frame {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+  background: #fff;
+  border: 1px solid var(--rb-border);
+  border-radius: 14px;
+  box-shadow: var(--rb-shadow-pop);
+  outline: none;
+  overflow: hidden;
+}
+.rb-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--rb-border);
+  background: #fff;
+}
+.rb-modal__header h2 {
+  font-size: 17px;
+}
+.rb-modal__body {
+  padding: 16px 20px;
+  overflow: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.rb-modal__footer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 12px 20px;
+  border-top: 1px solid var(--rb-border);
+  background: #f8fafb;
+}
+.rb-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+}
+.rb-form-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.rb-error-summary {
+  background: var(--rb-danger-soft);
+  border: 1px solid #f3c1c1;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  color: var(--rb-danger-ink);
+}
+.rb-error-summary ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+.rb-adv {
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px dashed var(--rb-border-strong);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.rb-adv__row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.rb-adv__row .rb-field {
+  min-width: 140px;
+}
+.rb-adv__check {
+  padding-bottom: 8px;
+}
+.rb-block-form__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+/* 실시간 충돌 안내 */
+.rb-cp {
+  border: 1px solid var(--rb-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #f7f9fb;
+}
+.rb-cp__head {
+  margin: 0;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rb-cp--ok {
+  background: var(--rb-ok-soft);
+  border-color: #b6dfc7;
+}
+.rb-cp--ok .rb-cp__head {
+  color: var(--rb-ok-ink);
+}
+.rb-cp--partial {
+  background: var(--rb-warn-soft);
+  border-color: #f2d9a6;
+}
+.rb-cp--partial .rb-cp__head {
+  color: var(--rb-warn-ink);
+}
+.rb-cp--fail {
+  background: var(--rb-danger-soft);
+  border-color: #f3c1c1;
+}
+.rb-cp--fail .rb-cp__head {
+  color: var(--rb-danger-ink);
+}
+.rb-cp--idle {
+  color: var(--rb-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rb-cp__list {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+}
+.rb-cp__note {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #5a4a00;
+}
+.rb-cp__action {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #fff;
+  border: 1px solid var(--rb-border);
+  border-radius: 8px;
+  font-size: 13px;
+}
+.rb-cp__action--warn {
+  border-color: #f2d9a6;
+  background: #fffdf3;
+}
+.rb-cp__suggest {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rb-cp__label {
+  display: inline-block;
+  min-width: 120px;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--rb-muted);
+}
+
+/* ---------- 카드, 대시보드 ---------- */
+.rb-dash {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.rb-dash__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.rb-dash__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.rb-card {
+  background: var(--rb-surface);
+  border: 1px solid var(--rb-border);
+  border-radius: var(--rb-radius);
+  box-shadow: var(--rb-shadow);
+  padding: 16px 18px;
+  min-width: 0;
+}
+.rb-card--flush {
+  padding: 0;
+  overflow: hidden;
+}
+.rb-card h2 {
+  margin-bottom: 2px;
+}
+.rb-card .rb-grid-wrap {
+  margin-top: 10px;
+}
+.rb-history .rb-grid-wrap {
+  margin-top: 0;
+}
+.rb-empty {
+  text-align: center;
+  padding: 48px 12px;
+  background: var(--rb-surface);
+  border: 1px dashed var(--rb-border-strong);
+  border-radius: var(--rb-radius);
+  color: var(--rb-muted);
+}
+.rb-empty p {
+  margin: 4px 0 0;
+}
+.rb-empty__icon {
+  display: inline-flex;
+  width: 52px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-fill);
+  margin-bottom: 4px;
+}
+
+/* 차트: 눈금선·축 선을 연하게, 글자는 같은 폰트 (공식 문서: .wj-gridline / .wj-tick CSS 로 모양 변경) */
+.rb-chart {
+  width: 100%;
+  min-height: 220px;
+}
+.rb-chart text {
+  font-family: var(--rb-font);
+}
+.rb-chart .wj-gridline {
+  stroke: #e9eef2;
+  stroke-width: 1px;
+  opacity: 1;
+}
+.rb-chart .wj-gridline-minor {
+  stroke: #f1f4f7;
+}
+.rb-chart .wj-axis-x .wj-tick,
+.rb-chart .wj-axis-y .wj-tick {
+  stroke: #d3dbe2;
+}
+.rb-chart .wj-axis-x .wj-label,
+.rb-chart .wj-axis-y .wj-label {
+  fill: var(--rb-muted);
+  font-size: 12px;
+}
+.rb-chart .wj-legend text {
+  fill: var(--rb-ink);
+}
+
+/* 차트 툴팁 (공식 문서: 툴팁은 .wj-tooltip 클래스로 배경·테두리·여백을 바꾼다. 우리 툴팁에는 rb-chart-tip 을 추가로 붙였다) */
+.wj-tooltip.rb-chart-tip {
+  background: #fff;
+  color: var(--rb-ink);
+  border: 1px solid var(--rb-border);
+  border-radius: 10px;
+  box-shadow: var(--rb-shadow-pop);
+  padding: 10px 12px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  opacity: 1;
+}
+.rb-tip {
+  min-width: 220px;
+}
+.rb-tip__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 13.5px;
+}
+.rb-tip__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: none;
+}
+.rb-tip__sub {
+  color: var(--rb-muted);
+  font-size: 12px;
+  margin: 1px 0 4px 18px;
+}
+.rb-tip__muted {
+  color: var(--rb-muted);
+  font-weight: 400;
+  font-size: 12px;
+}
+.rb-tip__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+}
+.rb-tip__table td {
+  padding: 3px 0;
+  white-space: nowrap;
+}
+.rb-tip__table td + td {
+  text-align: right;
+  padding-left: 16px;
+}
+.rb-tip__head td {
+  color: var(--rb-muted);
+  font-size: 11.5px;
+  border-bottom: 1px solid #eef1f4;
+}
+.rb-tip__row.is-active td {
+  font-weight: 700;
+  background: var(--rb-primary-soft);
+}
+.rb-tip__row.is-active td:first-child {
+  padding-left: 6px;
+  border-radius: 6px 0 0 6px;
+}
+.rb-tip__row.is-active td:last-child {
+  padding-right: 6px;
+  border-radius: 0 6px 6px 0;
+}
+.rb-tip__total td {
+  border-top: 1px solid var(--rb-border);
+  font-weight: 700;
+  padding-top: 5px;
+}
+.rb-tip__sw {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  margin-right: 7px;
+  border: 1.5px solid;
+  vertical-align: -1px;
+}
+.rb-tip__foot {
+  margin-top: 6px;
+  color: var(--rb-muted);
+  font-size: 11.5px;
+}
+.rb-tip__line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 4px;
+}
+.rb-tip__badge {
+  background: var(--rb-warn-soft);
+  color: var(--rb-warn-ink);
+  border-radius: 999px;
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+/* 자원 색 점, 가동률 막대(표 안): 확정 = 단색, 가예약 = 같은 색의 대각선 줄무늬 */
+.rb-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.rb-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+}
+.rb-bar__track {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: #e8edf2;
+  overflow: hidden;
+  display: flex;
+}
+.rb-bar__track i {
+  display: block;
+  height: 100%;
+}
+.rb-bar__c {
+  border-radius: 999px 0 0 999px;
+}
+.rb-bar__t {
+  border-radius: 0 999px 999px 0;
+}
+.rb-bar__c:last-child {
+  border-radius: 999px;
+}
+.rb-bar em {
+  font-style: normal;
+  min-width: 46px;
+  text-align: right;
+  color: var(--rb-ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- Wijmo FlexGrid(표) ----------
+ * 셀 내용의 세로 가운데 맞춤: 표가 행·머리글 높이를 CSS 변수(--rb-row-h, --rb-head-h)로 넘겨 주고,
+ * 셀의 줄 높이(line-height)를 그 높이와 같게 한다. 셀 안의 inline 요소(배지·아이콘·버튼)는 vertical-align: middle 로 맞춘다.
+ */
+.rb-grid.wj-flexgrid {
+  --rb-row-h: 40px;
+  --rb-head-h: 38px;
+  height: var(--rb-grid-height, 360px);
+  border: 1px solid var(--rb-border);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 13px;
+  background: #fff;
+}
+.rb-card--flush .rb-grid.wj-flexgrid {
+  border: 0;
+  border-radius: 0;
+}
+/* 열 머리글: 그라데이션 없이 은은한 단색 바탕 + 아래쪽 파란 선, 글자 가운데 정렬 */
+.rb-grid .wj-header.wj-cell {
+  background: color-mix(in srgb, var(--rb-primary) 9%, white);
+  color: var(--rb-primary-ink);
+  font-weight: 700;
+  text-align: center;
+  border-color: color-mix(in srgb, var(--rb-primary) 22%, white);
+  box-shadow: inset 0 -2px 0 var(--rb-primary-line);
+  line-height: var(--rb-head-h);
+}
+.rb-grid .wj-cell {
+  line-height: var(--rb-row-h);
+  padding-top: 0;
+  padding-bottom: 0;
+  border-color: #eef2f5;
+}
+.rb-grid .wj-cell.rb-cell-wrap {
+  white-space: normal;
+  line-height: 1.4;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+.rb-grid .wj-cell > .rb-evt,
+.rb-grid .wj-cell > .rb-actor,
+.rb-grid .wj-cell > .rb-time {
+  vertical-align: middle;
+}
+.rb-grid .wj-alt:not(.wj-state-selected):not(.wj-state-multi-selected) {
+  background: #fafcfd;
+}
+/* 표 안의 버튼(예: 차단 목록의 삭제): .rb-btn 이 font: inherit 로 셀의 줄 높이(40px 등)까지 물려받아 커지므로 줄 높이를 되돌리고 높이를 고정한다. */
+.rb-grid .wj-cell .rb-btn {
+  line-height: 1;
+  height: 26px;
+  min-height: 0;
+  padding: 0 9px;
+  font-size: 12px;
+  gap: 4px;
+  vertical-align: middle;
+  border-radius: 6px;
+}
+.rb-grid .wj-cell .rb-btn .rb-icon {
+  width: 13px;
+  height: 13px;
+}
+/* 행 선택: Wijmo 기본(진한 청회색 배경 + 흰 글자) 대신 연한 파랑 배경 + 진한 글자. 기본 규칙보다 선택자를 길게 써서 이긴다. */
+.rb-grid .wj-cells .wj-cell.wj-state-selected,
+.rb-grid .wj-cells .wj-cell.wj-state-multi-selected {
+  background: color-mix(in srgb, var(--rb-primary) 16%, white);
+  color: var(--rb-ink);
+}
+/* 이력 행 강조: 충돌 거부(빨강) · 시스템/정책(파랑) · 되돌리기/다시 실행(회색 글자). 선택 색보다 약하다. */
+.rb-grid .wj-cell.rb-rowc-reject {
+  background: #fff6f6;
+}
+.rb-grid .wj-cell.rb-rowc-sys {
+  background: color-mix(in srgb, var(--rb-primary) 6%, white);
+}
+.rb-grid .wj-cell.rb-rowc-mute {
+  color: var(--rb-muted);
+}
+.rb-grid .wj-cell.rb-rowc-reject.rb-cell-first {
+  box-shadow: inset 3px 0 0 var(--rb-danger);
+}
+.rb-grid .wj-cell.rb-rowc-sys.rb-cell-first {
+  box-shadow: inset 3px 0 0 var(--rb-primary);
+}
+.rb-grid .wj-cell.rb-rowc-focus {
+  background: var(--rb-primary-soft);
+}
+
+/* 이력 표 안의 부품: 시각(두 줄) · 행위자 · 유형 배지 · 내용 */
+.rb-time {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: 1.25;
+}
+.rb-time b {
+  font-size: 12.5px;
+}
+.rb-time span {
+  color: var(--rb-muted);
+  font-size: 12px;
+}
+.rb-actor {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+.rb-actor .rb-icon {
+  color: var(--rb-slate);
+}
+.rb-evt {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.6;
+  border: 1px solid;
+  vertical-align: middle;
+}
+.rb-evt--ok {
+  background: var(--rb-ok-soft);
+  color: var(--rb-ok-ink);
+  border-color: #b6dfc7;
+}
+.rb-evt--info {
+  background: var(--rb-primary-soft);
+  color: var(--rb-primary-ink);
+  border-color: var(--rb-primary-line);
+}
+.rb-evt--warn {
+  background: var(--rb-warn-soft);
+  color: var(--rb-warn-ink);
+  border-color: #f0c98a;
+}
+.rb-evt--danger {
+  background: var(--rb-danger-soft);
+  color: var(--rb-danger-ink);
+  border-color: #efb3b3;
+}
+.rb-evt--plain {
+  background: #eef2f5;
+  color: #3f4b56;
+  border-color: var(--rb-border);
+}
+.rb-sum__lead {
+  font-weight: 700;
+  margin-right: 6px;
+}
+.rb-sum__rest {
+  color: var(--rb-ink);
+}
+
+/* ---------- 토스트 ---------- */
+.rb-toasts {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 6000;
+  max-width: min(480px, calc(100vw - 32px));
+}
+.rb-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #26323c;
+  color: #fff;
+  padding: 11px 14px;
+  border-radius: 10px;
+  box-shadow: var(--rb-shadow-pop);
+  border-left: 4px solid var(--rb-primary);
+}
+.rb-toast--success {
+  background: #14573c;
+  border-left-color: #5fd19a;
+}
+.rb-toast--error {
+  background: #8a2626;
+  border-left-color: #ff8a8a;
+}
+.rb-toast__msg {
+  flex: 1;
+}
+.rb-toast .rb-link-btn {
+  color: #bfeaf6;
+  white-space: nowrap;
+}
+.rb-toast .rb-icon-btn {
+  color: #fff;
+}
+.rb-toast .rb-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ---------- 반응형 ---------- */
+@media (max-width: 1399px) {
+  .rb-dash__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 1199px) {
+  .rb-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rb-detail {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: min(380px, 100%);
+    max-height: none;
+    border-radius: 0;
+    z-index: 900;
+    box-shadow: -8px 0 24px rgba(16, 24, 40, 0.2);
+  }
+  .rb-detail--open {
+    display: block;
+  }
+  .rb-kpis__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  .rb-app {
+    padding: 12px;
+  }
+  .rb-form-grid,
+  .rb-form-grid--3 {
+    grid-template-columns: 1fr;
+  }
+  .rb-dialog,
+  .wj-control.rb-dialog {
+    width: 100vw !important;
+  }
+  .rb-dialog__frame {
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    border: 0;
+  }
+  .rb-modal__footer {
+    position: sticky;
+    bottom: 0;
+  }
+  .rb-scheduler-wrap {
+    height: min(var(--rb-sched-height, 640px), 560px);
+  }
+  .rb-xf__count {
+    margin-left: 0;
+    width: 100%;
+  }
+  .rb-kpis__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 인쇄 / PDF 저장: 조작 요소를 숨기고 스케줄러를 펼쳐서 출력 ---------- */
+@media print {
+  body {
+    background: #fff;
+  }
+  .rb-no-print,
+  .rb-detail,
+  .rb-dialog,
+  .rb-toasts,
+  .rb-tabs-host .wj-tabheaders {
+    display: none !important;
+  }
+  .rb-app {
+    padding: 0;
+    max-width: none;
+  }
+  .rb-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rb-scheduler-wrap {
+    height: auto !important;
+    overflow: visible;
+  }
+  .rb-scheduler-host {
+    min-width: 0 !important;
+  }
+  .rb-kpis__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+body > .wj-menu.wj-dropdown {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 드롭다운 목록: 휠 스크롤 허용 (overflow:hidden 덮어쓰기) */
+.wj-dropdown-panel.wj-listbox {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain; /* 목록 끝에서 뒤쪽 페이지가 같이 스크롤되는 것 방지 */
+}
+
+/* 오늘 예약 카드: '오늘로 이동' 버튼이 나타나도 카드 높이가 변하지 않도록 */
+.rb-kpi {
+  position: relative;
+}
+.rb-kpi .rb-link-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+body > .wj-menu.wj-dropdown {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rb-filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.rb-filter-actions__hint {
+  min-height: 20px;
+  font-size: 13px;
+  color: #b45309;
+}
+.rb-filter-actions .rb-btn.is-dirty {
+  box-shadow: 0 0 0 3px rgba(9, 134, 141, 0.25);
+}
+.rb-xf .rb-btn.is-dirty {
+  box-shadow: 0 0 0 3px rgba(9, 134, 141, 0.25);
+}
+
+/* 주간·월간 뷰: 헤더 셀·코너의 최소 크기가 격자 칸보다 커서 겹치는 문제 방지 */
+.wj-scheduler-surface:not(.wj-scheduler-surface-timed-horizontal)
+  .wj-scheduler-timed-section-header,
+.wj-scheduler-surface:not(.wj-scheduler-surface-timed-horizontal)
+  .wj-scheduler-matrix-band {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  box-sizing: border-box;
+}
+.wj-scheduler-surface:not(.wj-scheduler-surface-timed-horizontal)
+  .wj-scheduler-timed-corner {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.rb-item .rb-badge--confirmed {
+  display: none;
+}
+
+/* 일간(자원별) 뷰: 행 머리글 열 폭을 셀 폭(180px)과 맞춘다 */
+.wj-scheduler-surface-timed-horizontal {
+  --rb-rowhead-w: 180px; /* 행 머리글 셀 최소 폭과 같은 값 */
+}
+.wj-scheduler-surface-timed-horizontal
+  .wj-scheduler-timed-horizontal-header-row,
+.wj-scheduler-surface-timed-horizontal .wj-scheduler-timed-horizontal-row-grid {
+  grid-template-columns: var(--rb-rowhead-w) max-content !important;
+}
+.wj-scheduler-surface-timed-horizontal .wj-scheduler-timed-corner-frame,
+.wj-scheduler-surface-timed-horizontal
+  .wj-scheduler-timed-horizontal-row-header-frame {
+  grid-template-columns: var(--rb-rowhead-w) !important;
+}
+.wj-scheduler-surface-timed-horizontal .wj-scheduler-timed-scroll-viewport {
+  scroll-padding-left: var(--rb-rowhead-w) !important;
+}
+
+/* ---------- 일정 카드: 사용자가 고른 색 ---------- */
+.rb-item--c-yellow {
+  --rb-c-bg: #fff3c4;
+  --rb-c-fg: #6b4f00;
+  --rb-c-accent: #d9a400;
+}
+.rb-item--c-green {
+  --rb-c-bg: #dff3e4;
+  --rb-c-fg: #1a6a32;
+  --rb-c-accent: #2e9e4f;
+}
+.rb-item--c-red {
+  --rb-c-bg: #fbe0e2;
+  --rb-c-fg: #9a1c28;
+  --rb-c-accent: #d64550;
+}
+.rb-item--c-purple {
+  --rb-c-bg: #e9e3f8;
+  --rb-c-fg: #4a3590;
+  --rb-c-accent: #7a5cc8;
+}
+.rb-item--c-orange {
+  --rb-c-bg: #fde6d4;
+  --rb-c-fg: #8c4410;
+  --rb-c-accent: #e07b39;
+}
+.rb-item--c-blue {
+  --rb-c-bg: #dcedfa;
+  --rb-c-fg: #12507f;
+  --rb-c-accent: #2f8fd3;
+}
+
+/* 카드 안쪽: 배경·글자색 + 왼쪽 강조선. (가예약 점선, 취소 흐림, 선택·충돌 테두리는 기존 규칙 그대로 유지) */
+.rb-item[class*='rb-item--c-'] {
+  background-color: var(--rb-c-bg);
+  color: var(--rb-c-fg);
+  border-left: 4px solid var(--rb-c-accent);
+  border-radius: inherit;
+}
+/* 바깥 칸(Wijmo 가 자원 유형 색을 칠하는 요소)도 같은 색으로 맞춘다. 안쪽 카드 가장자리로 유형 색이 비치지 않게 한다. */
+.wj-scheduler-item:has(> .rb-item--c-yellow) {
+  background-color: #fff3c4 !important;
+}
+.wj-scheduler-item:has(> .rb-item--c-green) {
+  background-color: #dff3e4 !important;
+}
+.wj-scheduler-item:has(> .rb-item--c-red) {
+  background-color: #fbe0e2 !important;
+}
+.wj-scheduler-item:has(> .rb-item--c-purple) {
+  background-color: #e9e3f8 !important;
+}
+.wj-scheduler-item:has(> .rb-item--c-orange) {
+  background-color: #fde6d4 !important;
+}
+.wj-scheduler-item:has(> .rb-item--c-blue) {
+  background-color: #dcedfa !important;
+}
+
+/* 상세 패널의 색 점 */
+.rb-colordot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* ---------- 예약 폼의 색상 선택(Outlook 범주 모양) ---------- */
+.rb-colorpick {
+  position: relative;
+  width: 100%;
+}
+
+.rb-colorpick__btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 10px;
+  line-height: 1.4;
+  border: 1px solid var(--rb-border-strong);
+  border-radius: var(--rb-radius-sm);
+  background: #fff;
+  font: inherit;
+  color: var(--rb-ink);
+  text-align: left;
+  cursor: pointer;
+}
+.rb-colorpick__btn:hover:not(:disabled) {
+  border-color: var(--rb-primary);
+}
+.rb-colorpick__btn:focus-visible {
+  outline: none;
+  border-color: var(--rb-primary);
+  box-shadow: var(--rb-focus);
+}
+.rb-colorpick__btn:disabled {
+  background: #f1f4f6;
+  color: var(--rb-muted);
+  cursor: not-allowed;
+}
+.rb-colorpick__name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rb-colorpick__caret {
+  flex: none;
+  color: var(--rb-muted);
+}
+.rb-colorpick__tag {
+  flex: none;
+  display: block;
+}
+
+.rb-colorpick__menu {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  top: calc(100% + 4px);
+  min-width: 100%;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid var(--rb-border);
+  border-radius: 10px;
+  box-shadow: var(--rb-shadow-pop);
+  outline: none;
+}
+.rb-colorpick__menu--up {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+.rb-colorpick__opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.rb-colorpick__opt[data-active='true'] {
+  background: var(--rb-primary-soft);
+}
+.rb-colorpick__opt[aria-selected='true'] {
+  font-weight: 700;
+}
+.rb-colorpick__check {
+  margin-left: auto;
+  color: var(--rb-primary-fill);
+}
+.rb-colorpick__sep {
+  height: 1px;
+  margin: 4px 2px;
+  background: var(--rb-border);
+}
+
+/* ---------- 같은 자원에서 취소 예약과 활성 일정이 겹칠 때: 레인을 위/아래로 나눠 표시 ---------- */
+.rb-scheduler-wrap
+  .wj-scheduler
+  .wj-scheduler-item.wj-scheduler-timed-item-horizontal:has(
+    > .rb-item--split-top
+  ) {
+  top: 1px !important;
+  height: calc(50% - 2px) !important;
+  min-height: 0 !important;
+}
+.rb-scheduler-wrap
+  .wj-scheduler
+  .wj-scheduler-item.wj-scheduler-timed-item-horizontal:has(
+    > .rb-item--split-bottom
+  ) {
+  top: calc(50% + 1px) !important;
+  height: calc(50% - 2px) !important;
+  min-height: 0 !important;
+}
+/* 절반 높이에서는 제목 한 줄만 보여 준다. (시간·상태는 마우스를 올리면 나오는 툴팁에 그대로 있다) */
+.rb-item--split-top,
+.rb-item--split-bottom {
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+}
+.rb-item--split-top .rb-item__title,
+.rb-item--split-bottom .rb-item__title {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rb-item--split-top .rb-item__meta,
+.rb-item--split-bottom .rb-item__meta {
+  display: none;
+}
+
+/* ---------- 같은 자원에서 취소 예약과 활성 일정이 겹칠 때: 레인을 위/아래로 나눠 표시 ---------- */
+.rb-scheduler-wrap
+  .wj-scheduler
+  .wj-scheduler-item.wj-scheduler-timed-item-horizontal:has(
+    > .rb-item--split-top
+  ) {
+  top: 1px !important;
+  height: calc(50% - 2px) !important;
+  min-height: 0 !important;
+}
+.rb-scheduler-wrap
+  .wj-scheduler
+  .wj-scheduler-item.wj-scheduler-timed-item-horizontal:has(
+    > .rb-item--split-bottom
+  ) {
+  top: calc(50% + 1px) !important;
+  height: calc(50% - 2px) !important;
+  min-height: 0 !important;
+}
+/* 절반 높이에서는 제목 한 줄만 보여 준다. (시간·상태는 마우스를 올리면 나오는 툴팁에 그대로 있다) */
+.rb-item--split-top,
+.rb-item--split-bottom {
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+}
+.rb-item--split-top .rb-item__title,
+.rb-item--split-bottom .rb-item__title {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rb-item--split-top .rb-item__meta,
+.rb-item--split-bottom .rb-item__meta {
+  display: none;
+}
