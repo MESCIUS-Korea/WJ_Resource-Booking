@@ -1,4 +1,4 @@
-# Resource Booking — 자원 예약 데모
+# Resource Booking — 리소스 예약 데모
 
 React + JavaScript + **Wijmo FlexScheduler**(5.20262.60)로 만든 샘플 프로젝트입니다.
 서버·DB·로그인 없이 **브라우저 메모리에서만** 동작하며, 새로고침하면 초기 데이터로 돌아갑니다.
